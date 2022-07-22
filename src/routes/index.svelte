@@ -1,6 +1,24 @@
+<script context="module">
+	export async function load({ fetch }) {
+		const res = await fetch('/tz.json');
+
+		const tzOptions = await res.json();
+
+		if (res.ok) {
+			return {
+				props: {
+					tzOptions
+				}
+			};
+		}
+	}
+</script>
+
 <script>
     import AddClock from "$lib/Clocks/Add.svelte";
 	import ClockList from "$lib/Clocks/List.svelte";
+
+    export let tzOptions;
 </script>
 
 <svelte:head>
@@ -14,7 +32,7 @@
 
 	<ClockList />
     <br/>
-    <AddClock/>
+    <AddClock tzOptions={tzOptions.timezones}/>
 </div>
 
 <style>

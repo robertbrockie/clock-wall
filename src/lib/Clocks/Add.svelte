@@ -1,6 +1,8 @@
 <script>
-	import Modal from "$lib/Modal.svelte";
-	import { clockList } from "$lib/Clocks/store";
+	import Modal from '$lib/Modal.svelte';
+	import { clockList } from '$lib/Clocks/store';
+
+	export let tzOptions = [];
 
 	let showModal = false;
 
@@ -17,7 +19,7 @@
 		]);
 
 		resetForm();
-        showModal = false;
+		showModal = false;
 	}
 
 	function resetForm() {
@@ -29,11 +31,17 @@
 <button on:click={() => (showModal = true)}>Add</button>
 
 {#if showModal}
-	<Modal on:close={() => (showModal = false)}>
+	<Modal hideClose={true} on:close={() => (showModal = false)}>
 		<h2 slot="header">Add Clock</h2>
 
 		<label><input bind:value={name} placeholder="name" /></label>
-		<label><input bind:value={tz} placeholder="tz" /></label>
+		<label>
+			<select bind:value={tz}>
+				{#each tzOptions as opt}
+					<option >{opt}</option>
+				{/each}
+			</select>
+		</label>
 
 		<div class="buttons">
 			<button on:click={handleCreate} disabled={!name || !tz}>create</button>
@@ -42,7 +50,7 @@
 {/if}
 
 <style>
-	input {
+	input, select {
 		display: block;
 		margin: 0 0 0.5em 0;
 	}
