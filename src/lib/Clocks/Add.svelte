@@ -2,7 +2,10 @@
 	import Modal from '$lib/Modal.svelte';
 	import { clockList } from '$lib/Clocks/store';
 
-	export let tzOptions = [];
+	export /**
+	 * @type {string[]}
+	 */
+	let tzOptions = [];
 
 	let showModal = false;
 
@@ -10,16 +13,13 @@
 	let tz = '';
 
 	function handleCreate() {
-		clockList.updateClockList([
-			...$clockList,
-			{
-				name,
-				tz
-			}
-		]);
-
-		resetForm();
-		showModal = false;
+		if (!$clockList.some((c) => c.tz === tz)) {
+			clockList.updateClockList([...$clockList, { name, tz }]);
+			resetForm();
+			showModal = false;
+		} else {
+			alert('You already have a clock with this timezone!');
+		}
 	}
 
 	function resetForm() {
@@ -38,7 +38,7 @@
 		<label>
 			<select bind:value={tz}>
 				{#each tzOptions as opt}
-					<option >{opt}</option>
+					<option>{opt}</option>
 				{/each}
 			</select>
 		</label>
@@ -50,7 +50,8 @@
 {/if}
 
 <style>
-	input, select {
+	input,
+	select {
 		display: block;
 		margin: 0 0 0.5em 0;
 	}
