@@ -48,8 +48,9 @@
 
 <style>
 	.clock-list {
+        padding: 0px 30px;
 		display: grid;
 		grid-template-columns: auto auto auto;
-		grid-gap: 5px;
+		grid-gap: 10px;
 	}
 </style>

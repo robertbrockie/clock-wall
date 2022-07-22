@@ -15,7 +15,7 @@
 
 <style>
 .clock {
-    background-color: rgb(194, 207, 194);
+    background-color: white;
     border: 1px solid rgb(59, 37, 37);
     padding: 5px;
 }

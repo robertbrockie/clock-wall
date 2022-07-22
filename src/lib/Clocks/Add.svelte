@@ -28,7 +28,7 @@
 	}
 </script>
 
-<button on:click={() => (showModal = true)}>Add</button>
+<button on:click={() => (showModal = true)}>➕</button>
 
 {#if showModal}
 	<Modal hideClose={true} on:close={() => (showModal = false)}>
